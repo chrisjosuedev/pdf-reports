@@ -2,9 +2,9 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Report {
-  @PrimaryGeneratedColumn('identity')
+  @PrimaryGeneratedColumn('increment')
   id: number;
 
-  @Column('text')
+  @Column('longtext')
   content: string;
 }

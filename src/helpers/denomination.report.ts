@@ -2,9 +2,9 @@ import { TDocumentDefinitions } from "pdfmake/interfaces"
 
 export const denominationReport = (): TDocumentDefinitions => {
   return {
-    pageMargins: [61, 31, 61, 75],
+    pageMargins: [61, 31, 61, 80],
     header: {
-      text: 'Referencia: 22420',
+      text: `Referencia: ${new Date().getTime()}`,
       alignment: 'right',
       margin: [4, 4],
       font: 'Arial',

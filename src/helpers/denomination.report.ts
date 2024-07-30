@@ -108,6 +108,7 @@ export const denominationReport = (): TDocumentDefinitions => {
       {
         stack: [
           {
+            
             qr: 'https://devsse.senprende.hn/',
             fit: 97,
             alignment: 'center',

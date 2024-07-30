@@ -19,6 +19,8 @@ export class ReportsService {
   async getReport(): Promise<PDFKit.PDFDocument> {
     const docDefinition = denominationReport();
 
+    console.log(JSON.stringify(docDefinition))
+
     const pdfDoc = this.printer.createPdf(docDefinition);
 
     // Guardar Blob

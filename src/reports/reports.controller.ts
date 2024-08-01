@@ -8,8 +8,8 @@ export class ReportsController {
 
   @Get()
   async createReport(@Res() res: Response) {
-    const pdfDoc = await this.reportsService.getReport();
-    
+    const pdfDoc = await this.reportsService.generateReport();
+
     res.setHeader('Content-Type', 'application/pdf');
     pdfDoc.info.Title = 'Informe de Denominación'
     pdfDoc.pipe(res)
@@ -18,9 +18,9 @@ export class ReportsController {
 
   @Get(':id')
   async getReportById(@Param('id') id: number, @Res() res: Response) {
-    console.log(id)
-    const pdfBuffer = await this.reportsService.getReportById(id);
+    const reportPdf = await this.reportsService.getReportById(id);
     res.setHeader('Content-Type', 'application/pdf');
-    res.send(pdfBuffer);
+    res.setHeader('Content-Disposition', 'attachment; filename=denomination.pdf');
+    res.send(reportPdf)
   }
 }

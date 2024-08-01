@@ -22,7 +22,7 @@ import { ServeStaticModule } from "@nestjs/serve-static";
       password: 'admin',
       database: 'pdfdb',
       entities: [Report],
-      synchronize: true
+      synchronize: false
     }),
     ReportsModule,
     PrinterModule,

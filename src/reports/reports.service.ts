@@ -4,8 +4,7 @@ import { denominationReport } from "src/helpers/denomination.report";
 import { PrinterService } from "src/printer/printer.service";
 import { Report } from "./entities/report.entity";
 import { Repository } from "typeorm";
-
-import zlib from 'node:zlib'
+import { pdfBuffer } from "src/helpers/pdf.buffer.plugin/pdfBuffer";
 
 @Injectable()
 export class ReportsService {
@@ -16,36 +15,31 @@ export class ReportsService {
   ) { }
 
   // Generate Report
-  async getReport(): Promise<PDFKit.PDFDocument> {
+  async generateReport(): Promise<PDFKit.PDFDocument> {
     const docDefinition = denominationReport();
 
-    console.log(JSON.stringify(docDefinition))
+    // Saving docDefinition as JSON
+    await this._reportRepo.save({ content: JSON.stringify(docDefinition) })
 
+    // Create PDF
     const pdfDoc = this.printer.createPdf(docDefinition);
 
-    // Guardar Blob
-
-    const chunks = [];
-    pdfDoc.on('data', chunk => chunks.push(chunk))
-    pdfDoc.on('end', async () => {
-      const pdfBuffer = Buffer.concat(chunks);
-
-      // Compressing
-      const zip = zlib.gzipSync(pdfBuffer).toString('base64');
-
-      // Compress base 64 + Save on DB
-      await this._reportRepo.save({ content: zip })
-    })
-
+    // Return pdfDoc
     return pdfDoc;
-
   }
 
   // Get Report By Id
   async getReportById(id: number) {
+    // Find Report by ID and get Content
     const { content } = await this._reportRepo.findOne({ where: { id } })
-    // Unzip
-    const unzip = zlib.unzipSync(Buffer.from(content, 'base64'));
-    return unzip;
+
+    // Create PDF
+    const pdfDoc = this.printer.createPdf(JSON.parse(content))
+
+    // Get Buffer
+    const buffer = await pdfBuffer(pdfDoc)
+
+    // Return buffer
+    return buffer
   }
 }

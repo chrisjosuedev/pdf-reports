@@ -5,6 +5,6 @@ export class Report {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
-  @Column('longtext')
+  @Column('text')
   content: string;
 }

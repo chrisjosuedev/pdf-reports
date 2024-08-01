@@ -6,6 +6,8 @@ import { PrinterService } from './printer/printer.service';
 import { PrinterModule } from './printer/printer.module';
 import { join } from 'path';
 import { ServeStaticModule } from "@nestjs/serve-static";
+import { DocumentFormatModule } from './document-format/document-format.module';
+import { DocumentFormat } from "./document-format/entities/document-format.entity";
 
 @Module({
   imports: [
@@ -21,11 +23,13 @@ import { ServeStaticModule } from "@nestjs/serve-static";
       username: 'root',
       password: 'admin',
       database: 'pdfdb',
-      entities: [Report],
-      synchronize: false
+      autoLoadEntities: true,
+      entities: [Report, DocumentFormat],
+      synchronize: false,
     }),
     ReportsModule,
     PrinterModule,
+    DocumentFormatModule,
   ],
   providers: [PrinterService],
 })

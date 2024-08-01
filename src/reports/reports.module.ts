@@ -4,10 +4,11 @@ import { ReportsController } from './reports.controller';
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { Report } from "./entities/report.entity";
 import { PrinterModule } from "src/printer/printer.module";
+import { DocumentFormatModule } from "src/document-format/document-format.module";
 
 @Module({
   controllers: [ReportsController],
   providers: [ReportsService],
-  imports: [TypeOrmModule.forFeature([Report]), ReportsModule, PrinterModule]
+  imports: [TypeOrmModule.forFeature([Report]), DocumentFormatModule, PrinterModule]
 })
 export class ReportsModule { }

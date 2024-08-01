@@ -6,6 +6,7 @@ import { Response } from "express";
 export class ReportsController {
   constructor(private readonly reportsService: ReportsService) { }
 
+  // Generating PDF
   @Get()
   async createReport(@Res() res: Response) {
     const pdfDoc = await this.reportsService.generateReport();
@@ -16,6 +17,7 @@ export class ReportsController {
     pdfDoc.end()
   }
 
+  // Get PDF by ID
   @Get(':id')
   async getReportById(@Param('id') id: number, @Res() res: Response) {
     const reportPdf = await this.reportsService.getReportById(id);

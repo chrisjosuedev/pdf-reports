@@ -2,51 +2,59 @@ import { TDocumentDefinitions } from "pdfmake/interfaces"
 
 export const denominationReport = (): TDocumentDefinitions => {
   return {
-    pageMargins: [61, 31, 61, 80],
+    pageMargins: [61, 90, 61, 80],
     header: {
-      text: `Referencia: ${new Date().getTime()}`,
-      alignment: 'right',
-      margin: [4, 4],
-      font: 'Arial',
-      fontSize: 10,
+      stack: [
+        {
+          text: `Referencia: ${new Date().getTime()}`,
+          alignment: 'right',
+          margin: [4, 4],
+          font: 'Arial',
+          fontSize: 10,
+        },
+        {
+          columns: [
+            {
+              image: 'public/images/logo_honduras_emprende_solidaria.jpg',
+              width: 118,
+              height: 48,
+              opacity: 0.55,
+              alignment: 'left'
+            },
+            {
+              width: '*',
+              text: ''
+            },
+            {
+              columns: [
+                {
+                  width: '*',
+                  text: ''
+                },
+                {
+                  image: 'public/images/gob_logo.png',
+                  width: 48,
+                  height: 43,
+                  marginRight: 2
+                },
+                {
+                  image: 'public/images/logo_senprende.jpg',
+                  width: 87,
+                  height: 42,
+                  opacity: 0.55
+                }
+              ],
+              alignment: 'right'
+            }
+          ],
+          marginLeft: 61,
+          marginRight: 61,
+          marginTop: 15
+        },
+      ]
     },
     content: [
-      {
-        columns: [
-          {
-            image: 'public/images/logo_honduras_emprende_solidaria.jpg',
-            width: 118,
-            height: 48,
-            opacity: 0.55,
-            alignment: 'left'
-          },
-          {
-            width: '*',
-            text: ''
-          },
-          {
-            columns: [
-              {
-                width: '*',
-                text: ''
-              },
-              {
-                image: 'public/images/gob_logo.png',
-                width: 48,
-                height: 43,
-                marginRight: 2
-              },
-              {
-                image: 'public/images/logo_senprende.jpg',
-                width: 87,
-                height: 42,
-                opacity: 0.55
-              }
-            ],
-            alignment: 'right'
-          }
-        ],
-      },
+
       {
         text: 'SERVICIO NACIONAL DE EMPRENDIMIENTO Y DE PEQUEÑOS NEGOCIOS',
         bold: true,
@@ -108,7 +116,7 @@ export const denominationReport = (): TDocumentDefinitions => {
       {
         stack: [
           {
-            
+
             qr: 'https://devsse.senprende.hn/',
             fit: 97,
             alignment: 'center',

@@ -13,6 +13,7 @@ export const getPdfContentFromHtml = (htmlContent: string) => {
     },
   });
 
+  // GET DTL  html structure only
   const mainContent = content[1].stack[0].table.body[1][0].stack[0];
 
   return mainContent;

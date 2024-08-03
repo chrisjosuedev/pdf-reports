@@ -1,6 +1,6 @@
 import { Controller, Get, Param, Res } from '@nestjs/common';
-import { ReportsService } from './reports.service';
 import { Response } from "express";
+import { ReportsService } from "./reports.service";
 
 @Controller('reports')
 export class ReportsController {
@@ -22,7 +22,7 @@ export class ReportsController {
   async getReportById(@Param('id') id: number, @Res() res: Response) {
     const reportPdf = await this.reportsService.getReportById(id);
     res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', 'attachment; filename=denomination.pdf');
+    // res.setHeader('Content-Disposition', 'attachment; filename=denomination.pdf');
     res.send(reportPdf)
   }
 }

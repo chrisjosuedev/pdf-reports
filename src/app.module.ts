@@ -8,6 +8,8 @@ import { join } from 'path';
 import { ServeStaticModule } from "@nestjs/serve-static";
 import { DocumentFormatModule } from './document-format/document-format.module';
 import { DocumentFormat } from "./document-format/entities/document-format.entity";
+import { GenerateDocumentService } from "./helpers/services/generate-document.service";
+import { HelpersModule } from './helpers/helpers.module';
 
 @Module({
   imports: [
@@ -30,7 +32,8 @@ import { DocumentFormat } from "./document-format/entities/document-format.entit
     ReportsModule,
     PrinterModule,
     DocumentFormatModule,
+    HelpersModule,
   ],
-  providers: [PrinterService],
+  providers: [PrinterService, GenerateDocumentService],
 })
 export class AppModule { }
